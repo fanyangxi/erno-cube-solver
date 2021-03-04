@@ -1,7 +1,11 @@
+#[path="models.rs"]
+pub mod models;
+
+// use super::models;
 
 pub mod front_of_house {
-    pub fn add_to_waitlist() -> i32 {
-        return 3;
+    pub fn solve_it(state: CubeState) -> Vec<FaceRotation> {
+        return [];
     }
 }
 
