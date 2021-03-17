@@ -1,11 +1,3 @@
-// #[path="models.rs"]
-// mod models;
-
-// use crate::models;
-// use crate::src::models;
-
-// use super::models;
-
 pub mod solver {
     use crate::models::cube_state::CubeState;
     use crate::models::misc::FaceRotation;
@@ -67,11 +59,3 @@ mod tests {
         assert_eq!(2 + 2, 4);
     }
 }
-
-// pub fn solve_it() {
-//     println!(">> Hello, world!");
-// }
-
-// mod front_of_house {
-//     fn add_to_waitlist() {}
-// }
