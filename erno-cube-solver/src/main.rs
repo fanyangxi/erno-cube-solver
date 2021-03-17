@@ -1,14 +1,8 @@
 // #[path="solver.rs"]
 // mod solver;
 
-mod models;
 mod solver;
-
-use std::ffi::c_void;
-use crate::models::*;
-use crate::models::cube_state::CubeState;
-use crate::models::misc::FaceRotation;
-use crate::models::colors::Color;
+mod models;
 
 fn main() {
     // println!("Hello, world!");

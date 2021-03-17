@@ -1,6 +1,7 @@
 use crate::models::colors::Color;
 
 // For each face, top-left piece is 0,0:
+#[derive(Debug, Copy, Clone)]
 pub struct Face {
     pub p00: Color, // Corner
     pub p01: Color, // Edge

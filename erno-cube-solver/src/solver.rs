@@ -9,18 +9,14 @@
 pub mod solver {
     use crate::models::cube_state::CubeState;
     use crate::models::misc::FaceRotation;
-    use crate::models::colors::Color;
 
-    pub fn solve_it(state: CubeState) -> Vec<FaceRotation> {
-        let aaa = Color::Red;
-
+    pub fn solve_it(_state: CubeState) -> Vec<FaceRotation> {
         return vec![];
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::solve_it;
     use crate::models::cube_state::CubeState;
     use crate::models::face::Face;
     use crate::models::colors::Color;
@@ -59,15 +55,15 @@ mod tests {
             [Color::White,Color::White,Color::White],
         ]);
 
-        let cubeState = CubeState {
-            F: face1,
-            B: face2,
-            L: face3,
-            R: face4,
-            U: face5,
-            D: face6,
+        let cube_state = CubeState {
+            front: face1,
+            back: face2,
+            left: face3,
+            right: face4,
+            up: face5,
+            down: face6,
         };
-        let results = solve_it(cubeState);
+        let _results = solve_it(cube_state);
         assert_eq!(2 + 2, 4);
     }
 }
