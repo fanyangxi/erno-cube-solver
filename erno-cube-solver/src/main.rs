@@ -1,5 +1,6 @@
 mod solver;
 mod models;
+mod cfop;
 
 fn main() {
     // println!("Hello, world!");

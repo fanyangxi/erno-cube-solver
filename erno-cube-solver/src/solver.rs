@@ -2,7 +2,7 @@ pub mod solver {
     use crate::models::cube_state::CubeState;
     use crate::models::misc::FaceRotation;
 
-    pub fn solve_it(_state: CubeState) -> Vec<FaceRotation> {
+    pub fn solve_user_cfop(_state: CubeState) -> Vec<FaceRotation> {
         return vec![];
     }
 }
@@ -12,7 +12,7 @@ mod tests {
     use crate::models::cube_state::CubeState;
     use crate::models::face::Face;
     use crate::models::colors::Color;
-    use crate::solver::solver::solve_it;
+    use crate::solver::solver::solve_user_cfop;
 
     #[test]
     fn it_works() {
@@ -55,7 +55,7 @@ mod tests {
             up: face5,
             down: face6,
         };
-        let _results = solve_it(cube_state);
+        let _results = solve_user_cfop(cube_state);
         assert_eq!(2 + 2, 4);
     }
 }
