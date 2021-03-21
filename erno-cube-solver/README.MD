@@ -12,6 +12,8 @@ https://github.com/Wiston999/python-rubik
 
 
 ===================
+cargo test -- --nocapture
+
 ```$rust
 // let aaa: HashMap<&str, Vec<&str>> = [
 //     ("U", vec!["x"])
