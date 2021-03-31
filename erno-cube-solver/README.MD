@@ -27,4 +27,9 @@ let aaa: HashMap<String, Vec<String>> = [
 return aaa;
 ```
 
+CubieCube
+FaceCube
+NaiveCube
+CoordCube
+
 +
