@@ -1,4 +1,5 @@
 use crate::models::colors::Color;
+use std::fmt;
 
 // For each face, top-left piece is 0,0:
 #[derive(Debug, Copy, Clone)]
@@ -27,5 +28,14 @@ impl Face {
             p21: items[2][1],
             p22: items[2][2],
         }
+    }
+}
+
+impl fmt::Display for Face {
+    fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
+        write!(fmt, "{} {} {}; {} {} {}; {} {} {};",
+               self.p00, self.p01, self.p02,
+               self.p10, self.p11, self.p12,
+               self.p20, self.p21, self.p22)
     }
 }

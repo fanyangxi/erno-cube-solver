@@ -60,7 +60,6 @@ pub mod CrossSolver {
     }
 }
 
-
 #[cfg(test)]
 mod cross_solver_tests {
     use crate::cfop::cross_solver::CrossSolver::first_step;
@@ -71,4 +70,3 @@ mod cross_solver_tests {
         assert_eq!(vec!["F", "R", "U\'", "R\'", "F\'"], _results);
     }
 }
-
