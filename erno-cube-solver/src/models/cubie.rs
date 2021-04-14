@@ -1,79 +1,56 @@
 use crate::models::face::Face;
 use std::fmt;
+use std::collections::HashMap;
+use crate::models::sticker::Sticker;
+use std::borrow::Borrow;
+
+// front/back, right/left, up/down.
+// const FACINGS: &str = "FBRLUD";
+const FACINGS: &[char; 6] = &['F', 'B', 'R', 'L', 'U', 'D'];
+
+// red/orange, green/black, yellow/white.
+// const COLORS: &str = "ROGBYW";
+const COLORS: &[char; 6] = &['W', 'R', 'B', 'G', 'Y', 'O'];
 
 pub struct Cubie {
-    pub front: Face, // Front
-    pub back: Face, // Back
-    pub left: Face, // Left
-    pub right: Face, // Right
-    pub up: Face, // Up
-    pub down: Face, // Down
+    pub facings: HashMap<char, Sticker>,
 }
 
 impl Cubie {
-    pub fn new(faces: [Face; 6]) -> Self {
+    pub fn new(init_key_values: HashMap<char, char>) -> Self {
+        let mut results: HashMap<char, Sticker> = HashMap::new();
+        for (key, value) in init_key_values {
+            if !FACINGS.contains(&key) {
+                panic!("Facing: ({}) is not one of: {:?}", &key, FACINGS);
+            }
+            results.insert(key, Sticker { color: value });
+        }
         Cubie {
-            front: faces[0],
-            back: faces[1],
-            left: faces[2],
-            right: faces[3],
-            up: faces[4],
-            down: faces[5],
+            facings: results,
         }
     }
 }
 
 impl fmt::Display for Cubie {
     fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
-        write!(fmt, "Cube: {} {} {} {} {} {}",
-               self.front, self.back,
-               self.left, self.right,
-               self.up, self.down)
+        write!(fmt, "Cubie: {:?}", self.facings.keys().cloned().collect::<Vec<char>>())
     }
 }
 
 #[cfg(test)]
-mod cross_tests {
-    use crate::models::cube::Cube;
-    use crate::models::colors::Color;
-    use crate::models::face::Face;
+mod cubie_tests {
+    use crate::models::cubie::Cubie;
+    use std::collections::HashMap;
 
     #[test]
     fn it_works() {
+        let aaa: HashMap<char, char> = [
+            ('F', 'R'),
+            ('U', 'G'),
+        ].iter().cloned().collect();
+        let _cubie = Cubie::new(aaa);
 
-        let face1 = Face::new([
-            [Color::Red,Color::Red,Color::Red],
-            [Color::Red,Color::Red,Color::Red],
-            [Color::Red,Color::Red,Color::Red],
-        ]);
-        let face2 = Face::new([
-            [Color::Green,Color::Green,Color::Green],
-            [Color::Green,Color::Green,Color::Green],
-            [Color::Green,Color::Green,Color::Green],
-        ]);
-        let face3 = Face::new([
-            [Color::Yellow,Color::Yellow,Color::Yellow],
-            [Color::Yellow,Color::Yellow,Color::Yellow],
-            [Color::Yellow,Color::Yellow,Color::Yellow],
-        ]);
-        let face4 = Face::new([
-            [Color::Blue,Color::Blue,Color::Blue],
-            [Color::Blue,Color::Blue,Color::Blue],
-            [Color::Blue,Color::Blue,Color::Blue],
-        ]);
-        let face5 = Face::new([
-            [Color::Orange,Color::Orange,Color::Orange],
-            [Color::Orange,Color::Orange,Color::Orange],
-            [Color::Orange,Color::Orange,Color::Orange],
-        ]);
-        let face6 = Face::new([
-            [Color::White,Color::White,Color::White],
-            [Color::White,Color::White,Color::White],
-            [Color::White,Color::White,Color::White],
-        ]);
-
-        let _cube = Cube::new([face1, face2, face3, face4, face5, face6]);
-        println!("Cube fmt: [{}].", _cube);
+        println!("Cube fmt: [{}].", _cubie);
         // assert_eq!("x", _cube);
     }
 }
