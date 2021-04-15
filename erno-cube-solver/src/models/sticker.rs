@@ -3,6 +3,7 @@ use std::fmt;
 // red/orange, green/black, yellow/white.
 const COLORS: &[char; 7] = &['W', 'R', 'B', 'G', 'Y', 'O', '.'];
 
+#[derive(Debug, Copy, Clone)]
 pub struct Sticker {
     pub color: char,
 }
@@ -37,9 +38,9 @@ mod sticker_tests {
     use crate::models::sticker::Sticker;
 
     #[test]
-    fn it_works() {
+    fn should_fmt_sticker_correctly() {
         let _sticker = Sticker::new('R');
-        println!("Cube fmt: [{}].", _sticker);
-        // assert_eq!("x", _cube);
+        let expected = format!("{}", _sticker);
+        assert_eq!("Sticker: [R]", expected);
     }
 }

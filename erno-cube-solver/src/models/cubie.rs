@@ -1,10 +1,6 @@
-use crate::models::face::Face;
 use std::fmt;
 use std::collections::HashMap;
 use crate::models::sticker::Sticker;
-use std::borrow::Borrow;
-use std::collections::hash_map::Keys;
-use std::alloc::Global;
 use std::ops::Index;
 
 // front/back, right/left, up/down.
@@ -34,31 +30,29 @@ impl Cubie {
     }
 
     pub fn faces(&self) -> Vec<char> {
-        self.facings.keys().copied().collect::<Vec<_>>()
+        let mut items = self.facings.keys().map(|f| *f).collect::<Vec<_>>().to_vec();
+        items.sort();
+        return items;
     }
 
     // colors
     pub fn colors(&self) -> Vec<char> {
-        self.facings.values().map(|f| f.color).copied().collect::<Vec<_>>()
+        let mut items = self.facings.values().map(|f| f.color).collect::<Vec<_>>().to_vec();
+        items.sort();
+        return items;
     }
 
     pub fn stickers(&self) -> Vec<Sticker> {
-        self.facings.values().copied().collect::<Vec<_>>()
+        self.facings.values().map(|f| *f).collect::<Vec<_>>()
     }
 
     pub fn facing_to_color(facing: char) -> char {
-        let result = match COLORS.get(FACINGS.index(facing)) {
-            Some(v) => v,
-            None => panic!("Failed to facing_to_color, facing:{}.", facing)
-        };
+        let result = COLORS.index(FACINGS.iter().position(|&r| r == facing).unwrap());
         return *result
     }
 
     pub fn color_to_facing(color: char) -> char {
-        let result = match FACINGS.get(COLORS.index(color)) {
-            Some(v) => v,
-            None => panic!("Failed to color_to_facing, color:{}.", color)
-        };
+        let result = FACINGS.index(COLORS.iter().position(|&r| r == color).unwrap());
         return *result
     }
 
@@ -86,14 +80,50 @@ mod cubie_tests {
     use std::collections::HashMap;
 
     #[test]
-    fn it_works() {
+    fn should_fmt_cubie_correctly() {
         let aaa: HashMap<char, char> = [
             ('F', 'R'),
             ('U', 'G'),
         ].iter().cloned().collect();
         let _cubie = Cubie::new(aaa);
 
-        println!("Cube fmt: [{}].", _cubie);
-        // assert_eq!("x", _cube);
+        let expected = format!("{}", _cubie);
+        assert_eq!("Cubie: [\'U\', \'F\']", expected);
+    }
+
+    #[test]
+    fn should_get_cubie_faces() {
+        let aaa: HashMap<char, char> = [
+            ('F', 'R'),
+            ('U', 'G'),
+        ].iter().cloned().collect();
+        let _cubie = Cubie::new(aaa);
+
+        assert_eq!(vec!['F', 'U'], _cubie.faces());
+    }
+
+    #[test]
+    fn should_get_cubie_colors() {
+        let aaa: HashMap<char, char> = [
+            ('F', 'R'),
+            ('U', 'G'),
+        ].iter().cloned().collect();
+        let _cubie = Cubie::new(aaa);
+
+        assert_eq!(vec!['G', 'R'], _cubie.colors());
+    }
+
+    #[test]
+    fn should_execute_facing_to_color() {
+        let result = Cubie::facing_to_color('U');
+
+        assert_eq!('Y', result);
+    }
+
+    #[test]
+    fn should_execute_color_to_facing() {
+        let result = Cubie::color_to_facing('R');
+
+        assert_eq!('B', result);
     }
 }
